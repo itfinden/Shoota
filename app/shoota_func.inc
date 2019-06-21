@@ -26,14 +26,14 @@ function stepcheck {
 	if givemeayes "${BRIGHT}Vamos a Instalar : ${step} ?${NORMAL}"; then
 		return 0;
 	else
-		echo -e "\n${YELLOW}Skipping ${RED}${step}${YELLOW} per user input, continuing...\n${NORMAL}"
+		echo -e "\n${YELLOW}OK ${RED}${step}${YELLOW} no lo instalamos...\n${NORMAL}"
 		return 1;
 	fi
 
 	read answer
 	    case "$answer" in
 	    Y|y|yes|YES|Yes) return 0 ;;
-	    *) echo -e "\n${RED}Skipping this step per user input, processing next step...\n${NORMAL}"; return 1 ;;
+	    *) echo -e "\n${RED}OK : nos saltamos este paso \n${NORMAL}"; return 1 ;;
 	    esac
 }
 
