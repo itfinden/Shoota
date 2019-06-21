@@ -175,10 +175,10 @@ if [ -z "$cpanel_installed" ]; then
 	fi
 fi
 
-echo -e "${WHITEBG}${RED}${BRIGHT}${BLINK}Heads Up!${NORMAL}${WHITEBG}${BLACK}A couple things you should know about this script:${NORMAL}"
-echo -e "* You must have ${YELLOW}ioncube${NORMAL} enabled in ${YELLOW}WHM${NORMAL} under ${BLUE}Tweak Settings${NORMAL} > ${MAGENTA}cPanel PHP Loader${NORMAL} to install Softaculous"
-echo -e "* You must go through the initial setup in ${YELLOW}WHM${NORMAL}, selecting dns and ftp server type (when you first login to WHM) before running this script."
-echo -e "${BLUE}Like the script?  Contribute to the open source community and this project at http://github.com/tripflex/cpsetup ... surfs up!${NORMAL}"
+echo -e "${WHITEBG}${RED}${BRIGHT}${BLINK}Aviso!${NORMAL}${WHITEBG}${BLACK} Un par de cosas que debes saber sobre este script:${NORMAL}"
+echo -e "* Debes Tener habilitado ${YELLOW}ioncube${NORMAL} en ${YELLOW}WHM${NORMAL} ${BLUE}Tweak Settings${NORMAL} > ${MAGENTA}cPanel PHP Loader${NORMAL} para instalar Softaculous (opcional)"
+echo -e "* Debes pasar por la configuración inicial en ${YELLOW}WHM${NORMAL}, seleccionando el tipo de servidor dns y ftp (cuando inicias sesión por primera vez en WHM) antes de ejecutar este script."
+echo -e "${BLUE}Te gusto este Script?  trabajemos por un cpanel mas seguro en https://github.com/itfinden/shoota ... !${NORMAL}"
 echo -e "\n";
 
 if (($unattended > 0)); then
