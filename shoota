@@ -207,49 +207,49 @@ if [ $run ]; then
 	exit;
 fi
 
-if stepcheck "yum colors"; then
+if stepcheck "Yum colors"; then
 	headerBlock "Adding yum colors if does not exist..."
 	installYumColors
 fi
 
-if stepcheck "Actualizar el server entero"; then
+if stepcheck "Todas las actualizaciones del Servidor"; then
 	headerBlock "Actualizando los Paquetes por favor espere..."
 	yum clean all ${verbose}
 	yum update ${yumargs} ${verbose}
 fi
 
 if stepcheck "ConfigServer MailManage"; then
-	headerBlock "Installing ConfigServer MailManage, please wait..."
+	headerBlock "Instalando : ConfigServer MailManage, Por favor espere..."
 	installMailManage
 fi
 
 if stepcheck "ConfigServer MailQueue"; then
-	headerBlock "Installing ConfigServer MailQueue, please wait..."
+	headerBlock "Instalando : ConfigServer MailQueue, Por favor espere..."
 	installMailQueue
 fi
 
 if stepcheck "ConfigServer Firewall"; then
-	headerBlock "Installing ConfigServer Firewall, please wait..."
+	headerBlock "Instalando : ConfigServer Firewall, Por favor espere..."
 	installFirewall
 fi
 
-if stepcheck "ConfigServer ModSecurity Control (WHM already has this builtin)"; then
-	headerBlock "Installing ConfigServer ModSecurity Control, please wait..."
+if stepcheck "ConfigServer ModSecurity Control (WHM lo tiene incorporado)"; then
+	headerBlock "Instalando : ConfigServer ModSecurity Control, Por favor espere..."
 	installModSecurityControl
 fi
 
 if stepcheck "ConfigServer Explorer"; then
-	headerBlock "Installing ConfigServer Explorer, please wait..."
+	headerBlock "Instalando : ConfigServer Explorer, Por favor espere..."
 	installExplorer
 fi
 
 if stepcheck "R-fx Malware Detect"; then
-	headerBlock "Installing R-fx Malware Detect, please wait..."
+	headerBlock "Instalando : R-fx Malware Detect, Por favor espere..."
 	installMalDetect
 fi
 
 if stepcheck "ConfigServer Exploit Scanner (requires license)"; then
-	headerBlock "Installing ConfigServer Exploit Scanner, please wait..."
+	headerBlock "Instalando : ConfigServer Exploit Scanner, Por favor espere..."
 	installCXS
 fi
 
@@ -257,22 +257,22 @@ echo -e "\n";
 echo -n "${YELLOW}!! HEADS UP !!${RED}( You SHOULD do this NOW ): ${NORMAL}You must have ${YELLOW}ioncube${NORMAL} enabled in ${YELLOW}WHM${NORMAL} under ${BLUE}Tweak Settings${NORMAL} > ${MAGENTA}cPanel PHP Loader${NORMAL} or Softaculous will not install"
 echo -e "\n";
 if stepcheck "Softaculous"; then
-	headerBlock "Installing Softaculous, please wait..."
+	headerBlock "Instalando : Softaculous, Por favor espere..."
 	installSoftaculous
 fi
 
 if stepcheck "Account DNS Check"; then
-	headerBlock "Installing Account DNS Check, please wait..."
+	headerBlock "Instalando : Account DNS Check, Por favor espere..."
 	installAccountDNSCheck
 fi
 
 if stepcheck "WatchMySQL"; then
-	headerBlock "Installing WatchMySQL, please wait..."
+	headerBlock "Instalando : WatchMySQL, Por favor espere..."
 	installWatchMySQL
 fi
 
 if stepcheck "MySQL Tuner"; then
-	headerBlock "Installing MySQL Tuner, please wait..."
+	headerBlock "Instalando : MySQL Tuner, Por favor espere..."
 	installMySQLTuner
 fi
 
@@ -281,22 +281,22 @@ if stepcheck "harden server configuration"; then
 fi
 
 if stepcheck "ClamAV from source"; then
-	headerBlock "Installing ClamAV from source, please wait..."
+	headerBlock "Instalando : ClamAV from source, Por favor espere..."
 	installClamAV
 fi
 
 if stepcheck "CloudFlare mod_cloudflare"; then
 	promptForCloudFlareConfig
-	headerBlock "Downloading and installing mod_cloudflare, please wait..."
+	headerBlock "Downloading and Instalando : mod_cloudflare, Por favor espere..."
 	installModCloudFlare
 fi
 
 if stepcheck "add CloudFlare IPv4 and IPv6 subnets to ConfigServer Firewall allow list"; then
-	headerBlock "Adding IPv4 subnets to CSF allow list, please wait..."
+	headerBlock "Adding IPv4 subnets to CSF allow list, Por favor espere..."
 	addCloudFlareIPv4SubnetsToCSF
-	headerBlock "Adding IPv6 subnets to CSF allow list, please wait..."
+	headerBlock "Adding IPv6 subnets to CSF allow list, Por favor espere..."
 	addCloudFlareIPv4SubnetsToCSF
-	headerBlock "Restarting ConfigServer Firewall, please wait..."
+	headerBlock "Restarting ConfigServer Firewall, Por favor espere..."
 	csf -r
 fi
 
@@ -320,7 +320,7 @@ if stepcheck "Lets Encrypt for AutoSSL"; then
 	installLetsEncryptAutoSSL
 fi
 
-headerBlock "Cleaning up build files, please wait..."
+headerBlock "Cleaning up build files, Por favor espere..."
 cd ~
 rm -rf $builddir
 echo -e "\n${CYAN}Script Complete! Profit!\n${NORMAL}"
