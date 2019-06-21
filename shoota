@@ -191,8 +191,8 @@ fi
 
 echo -e "\n";
 
-if ! givemeayes "${RED}Would you like to continue with the install?${NORMAL}"; then
-	echo -e "\n${RED}Script killed, nothing has been changed or installed.\n${NORMAL}"
+if ! givemeayes "${RED}Empezamos con la Instalacion?${NORMAL}"; then
+	echo -e "\n${RED}Script eliminado, nada ha sido cambiado o instalado.\n${NORMAL}"
 	exit;
 fi
 
