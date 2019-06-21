@@ -218,37 +218,37 @@ if stepcheck "Actualizar el server entero"; then
 	yum update ${yumargs} ${verbose}
 fi
 
-if stepcheck "install ConfigServer MailManage"; then
+if stepcheck "ConfigServer MailManage"; then
 	headerBlock "Installing ConfigServer MailManage, please wait..."
 	installMailManage
 fi
 
-if stepcheck "install ConfigServer MailQueue"; then
+if stepcheck "ConfigServer MailQueue"; then
 	headerBlock "Installing ConfigServer MailQueue, please wait..."
 	installMailQueue
 fi
 
-if stepcheck "install ConfigServer Firewall"; then
+if stepcheck "ConfigServer Firewall"; then
 	headerBlock "Installing ConfigServer Firewall, please wait..."
 	installFirewall
 fi
 
-if stepcheck "install ConfigServer ModSecurity Control (WHM already has this builtin)"; then
+if stepcheck "ConfigServer ModSecurity Control (WHM already has this builtin)"; then
 	headerBlock "Installing ConfigServer ModSecurity Control, please wait..."
 	installModSecurityControl
 fi
 
-if stepcheck "install ConfigServer Explorer"; then
+if stepcheck "ConfigServer Explorer"; then
 	headerBlock "Installing ConfigServer Explorer, please wait..."
 	installExplorer
 fi
 
-if stepcheck "install R-fx Malware Detect"; then
+if stepcheck "R-fx Malware Detect"; then
 	headerBlock "Installing R-fx Malware Detect, please wait..."
 	installMalDetect
 fi
 
-if stepcheck "install ConfigServer Exploit Scanner (requires license)"; then
+if stepcheck "ConfigServer Exploit Scanner (requires license)"; then
 	headerBlock "Installing ConfigServer Exploit Scanner, please wait..."
 	installCXS
 fi
@@ -256,22 +256,22 @@ fi
 echo -e "\n";
 echo -n "${YELLOW}!! HEADS UP !!${RED}( You SHOULD do this NOW ): ${NORMAL}You must have ${YELLOW}ioncube${NORMAL} enabled in ${YELLOW}WHM${NORMAL} under ${BLUE}Tweak Settings${NORMAL} > ${MAGENTA}cPanel PHP Loader${NORMAL} or Softaculous will not install"
 echo -e "\n";
-if stepcheck "install Softaculous"; then
+if stepcheck "Softaculous"; then
 	headerBlock "Installing Softaculous, please wait..."
 	installSoftaculous
 fi
 
-if stepcheck "install Account DNS Check"; then
+if stepcheck "Account DNS Check"; then
 	headerBlock "Installing Account DNS Check, please wait..."
 	installAccountDNSCheck
 fi
 
-if stepcheck "install WatchMySQL"; then
+if stepcheck "WatchMySQL"; then
 	headerBlock "Installing WatchMySQL, please wait..."
 	installWatchMySQL
 fi
 
-if stepcheck "install MySQL Tuner"; then
+if stepcheck "MySQL Tuner"; then
 	headerBlock "Installing MySQL Tuner, please wait..."
 	installMySQLTuner
 fi
@@ -280,12 +280,12 @@ if stepcheck "harden server configuration"; then
 	hardenServerConfig
 fi
 
-if stepcheck "install ClamAV from source"; then
+if stepcheck "ClamAV from source"; then
 	headerBlock "Installing ClamAV from source, please wait..."
 	installClamAV
 fi
 
-if stepcheck "install CloudFlare mod_cloudflare"; then
+if stepcheck "CloudFlare mod_cloudflare"; then
 	promptForCloudFlareConfig
 	headerBlock "Downloading and installing mod_cloudflare, please wait..."
 	installModCloudFlare
@@ -300,7 +300,7 @@ if stepcheck "add CloudFlare IPv4 and IPv6 subnets to ConfigServer Firewall allo
 	csf -r
 fi
 
-if stepcheck "install CloudFlare RailGun (includes memcached)"; then
+if stepcheck "CloudFlare RailGun (includes memcached)"; then
 	installCloudFlareRailGun
 fi
 
@@ -312,11 +312,11 @@ if stepcheck "configure CloudFlare RailGun"; then
 	configureCloudFlareRailGun
 fi
 
-if stepcheck "install AfterLogic WebMail Lite"; then
+if stepcheck "AfterLogic WebMail Lite"; then
 	installAfterLogicWebmailLite
 fi
 
-if stepcheck "install Lets Encrypt for AutoSSL"; then
+if stepcheck "Lets Encrypt for AutoSSL"; then
 	installLetsEncryptAutoSSL
 fi
 
