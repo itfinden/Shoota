@@ -162,14 +162,14 @@ fi
 
 if [ -z "$cpanel_installed" ]; then
 	echo -e "${WHITEBG}${RED}${BRIGHT}${BLINK}Whoa Nelly!${NORMAL}${WHITEBG}${BLACK}It looks like cPanel is not installed on this server!${NORMAL}"
-	if givemeayes "${RED}Would you like to install cPanel before running this script?${NORMAL}"; then
-		headerBlock "No problem, let's get cPanel installed first ... this could take a minute ... or two ... or thirty .. please wait ..."
+	if givemeayes "${RED}¿Le gustaría instalar cPanel antes de ejecutar este script??${NORMAL}"; then
+		headerBlock "No hay problema, primero instalemos cPanel ... esto podría tardar un minuto ... o dos ... o treinta ... por favor, espere ..."
 		echo -e "\n";
-		read -p "Press [Enter] key when you are ready..."
+		read -p "Presione la tecla [Enter] cuando esté listo ..."
 		cd /home && curl -o latest -L http://httpupdate.cpanel.net/latest && sh latest
 	else
-		if ! givemeayes "${RED}Okay no problem, do you want to continue to this script (without installing cPanel)?${NORMAL}"; then
-			echo -e "\n${RED}Script killed, nothing has been changed or installed.\n${NORMAL}"
+		if ! givemeayes "${RED}De acuerdo, no hay problema, ¿desea continuar con este script (sin instalar cPanel)??${NORMAL}"; then
+			echo -e "\n${RED}Script eliminado, nada ha sido cambiado o instalado.\n${NORMAL}"
 			exit;
 		fi
 	fi
@@ -207,13 +207,13 @@ if [ $run ]; then
 	exit;
 fi
 
-if stepcheck "install yum colors"; then
+if stepcheck "yum colors"; then
 	headerBlock "Adding yum colors if does not exist..."
 	installYumColors
 fi
 
-if stepcheck "update all server packages"; then
-	headerBlock "Updating all system packages, please wait this may take a minute..."
+if stepcheck "Actualizar el server entero"; then
+	headerBlock "Actualizando los Paquetes por favor espere..."
 	yum clean all ${verbose}
 	yum update ${yumargs} ${verbose}
 fi
