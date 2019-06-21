@@ -23,7 +23,7 @@ function stepcheck {
 
 	step=$1
 	lineBreak
-	if givemeayes "${BRIGHT}Would you like to ${step} ?${NORMAL}"; then
+	if givemeayes "${BRIGHT}Vamos a Instalar : ${step} ?${NORMAL}"; then
 		return 0;
 	else
 		echo -e "\n${YELLOW}Skipping ${RED}${step}${YELLOW} per user input, continuing...\n${NORMAL}"
