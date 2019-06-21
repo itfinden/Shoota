@@ -323,5 +323,5 @@ fi
 headerBlock "Limpiando archivos de compilación, Por favor espere..."
 cd ~
 rm -rf $builddir
-echo -e "\n${CYAN}Script Complete! Profit!\n${NORMAL}"
+echo -e "\n${CYAN}Script Complete! Excelente!\n${NORMAL}"
 echo -e "\n${WHITEBG}${RED}!!! Si instaló mod_cloudflare, NO TE OLVIDES de iniciar sesión en WHM y recompilar Apache con mod_cloudflare (usando EasyApache) !!! \n${NORMAL}"
