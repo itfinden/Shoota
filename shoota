@@ -212,13 +212,13 @@ if stepcheck "Yum colors"; then
 	installYumColors
 fi
 
-if stepcheck "Todas las actualizaciones del Servidor"; then
+if stepcheck "Todas las actualizaciones del Servidor (Recomendado)"; then
 	headerBlock "Actualizando los Paquetes por favor espere..."
 	yum clean all ${verbose}
 	yum update ${yumargs} ${verbose}
 fi
 
-if stepcheck "ConfigServer MailManage"; then
+if stepcheck "ConfigServer MailManage (Recomendado)"; then
 	headerBlock "Instalando : ConfigServer MailManage, Por favor espere..."
 	installMailManage
 fi
@@ -228,7 +228,7 @@ if stepcheck "ConfigServer MailQueue"; then
 	installMailQueue
 fi
 
-if stepcheck "ConfigServer Firewall"; then
+if stepcheck "ConfigServer Firewall (Recomendado)"; then
 	headerBlock "Instalando : ConfigServer Firewall, Por favor espere..."
 	installFirewall
 fi
@@ -248,13 +248,13 @@ if stepcheck "R-fx Malware Detect"; then
 	installMalDetect
 fi
 
-if stepcheck "ConfigServer Exploit Scanner (requires license)"; then
+if stepcheck "ConfigServer Exploit Scanner (require licencia)"; then
 	headerBlock "Instalando : ConfigServer Exploit Scanner, Por favor espere..."
 	installCXS
 fi
 
 echo -e "\n";
-echo -n "${YELLOW}!! HEADS UP !!${RED}( You SHOULD do this NOW ): ${NORMAL}You must have ${YELLOW}ioncube${NORMAL} enabled in ${YELLOW}WHM${NORMAL} under ${BLUE}Tweak Settings${NORMAL} > ${MAGENTA}cPanel PHP Loader${NORMAL} or Softaculous will not install"
+echo -n "${YELLOW}!! AVISO !!${RED}( DEBES hacer esto AHORA ): ${NORMAL}Debe tener ioncube habilitado en WHM en Configuración de Tweak> cPanel PHP Loader o Softaculous no se instalará"
 echo -e "\n";
 if stepcheck "Softaculous"; then
 	headerBlock "Instalando : Softaculous, Por favor espere..."
@@ -280,31 +280,31 @@ if stepcheck "harden server configuration"; then
 	hardenServerConfig
 fi
 
-if stepcheck "ClamAV from source"; then
+if stepcheck "ClamAV desde los originales"; then
 	headerBlock "Instalando : ClamAV from source, Por favor espere..."
 	installClamAV
 fi
 
 if stepcheck "CloudFlare mod_cloudflare"; then
 	promptForCloudFlareConfig
-	headerBlock "Downloading and Instalando : mod_cloudflare, Por favor espere..."
+	headerBlock "Descargando e Instalando : mod_cloudflare, Por favor espere..."
 	installModCloudFlare
 fi
 
-if stepcheck "add CloudFlare IPv4 and IPv6 subnets to ConfigServer Firewall allow list"; then
-	headerBlock "Adding IPv4 subnets to CSF allow list, Por favor espere..."
+if stepcheck "agregue las subredes IPv4 e IPv6 de CloudFlare a la lista de permitidos del firewall ConfigServer"; then
+	headerBlock "agregando sub redes IPv4 a las listas permitidas de CSF, Por favor espere..."
 	addCloudFlareIPv4SubnetsToCSF
-	headerBlock "Adding IPv6 subnets to CSF allow list, Por favor espere..."
+	headerBlock "Agregando sub redes IPv6 a las listas permitidas de CSF, Por favor espere..."
 	addCloudFlareIPv4SubnetsToCSF
-	headerBlock "Restarting ConfigServer Firewall, Por favor espere..."
+	headerBlock "Re Iniciando ConfigServer Firewall, Por favor espere..."
 	csf -r
 fi
 
-if stepcheck "CloudFlare RailGun (includes memcached)"; then
+if stepcheck "CloudFlare RailGun (Incluido memcached)"; then
 	installCloudFlareRailGun
 fi
 
-if stepcheck "configure memcached for RailGun using sockets"; then
+if stepcheck "configurar memcached para RailGun usando sockets"; then
 	configureMemCachedRailGunSockets
 fi
 
@@ -320,8 +320,8 @@ if stepcheck "Lets Encrypt for AutoSSL"; then
 	installLetsEncryptAutoSSL
 fi
 
-headerBlock "Cleaning up build files, Por favor espere..."
+headerBlock "Limpiando archivos de compilación, Por favor espere..."
 cd ~
 rm -rf $builddir
 echo -e "\n${CYAN}Script Complete! Profit!\n${NORMAL}"
-echo -e "\n${WHITEBG}${RED}!!! If you installed mod_cloudflare DONT FORGET to login to WHM and recompile Apache with mod_cloudflare (using EasyApache) !!! \n${NORMAL}"
+echo -e "\n${WHITEBG}${RED}!!! Si instaló mod_cloudflare, NO TE OLVIDES de iniciar sesión en WHM y recompilar Apache con mod_cloudflare (usando EasyApache) !!! \n${NORMAL}"
