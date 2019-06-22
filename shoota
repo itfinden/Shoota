@@ -46,7 +46,7 @@ echo -n "${NORMAL}"
 # Define help function
 
 source ./app/shoota_help.inc
-source ./app/shoota_config.conf
+source ./shoota_config.conf
 
 
 # Declare vars. Flags initalizing to 0.
@@ -116,8 +116,6 @@ while true; do
 done
 
 source ./app/shoota_global.inc
-
-
 source ./app/shoota_func.inc
 
 cpanel_installed=$(/usr/local/cpanel/cpanel -V 2>/dev/null)
