@@ -1,7 +1,7 @@
 function help(){
-    echo "cpsetup - sMyles cPanel setup script v${version}";
-    echo "Usage example:";
-    echo "cpsetup [(-h|--help)] [(-v|--verbose)] [(-V|--version)] [(-u|--unattended)] [(-r|--run) value] [(-R|--functions)]";
+    echo "Shoota - @ManOfOrion cPanel setup script v${version}";
+    echo "Opciones:";
+    echo "Shoota [(-h|--help)] [(-v|--verbose)] [(-V|--version)] [(-u|--unattended)] [(-r|--run) value] [(-R|--functions)]";
     echo "Options:";
     echo "-h or --help: Displays this information.";
     echo "-v or --verbose: Verbose mode on.";

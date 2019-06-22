@@ -46,20 +46,15 @@ echo -n "${NORMAL}"
 # Define help function
 
 source ./app/shoota_help.inc
+source ./app/shoota_config.conf
 
 
 # Declare vars. Flags initalizing to 0.
 verbose="--quiet";
 yumargs="";
 unattended=0;
-builddir=~/cpsetupbuild/
-sshport=222;
-rootemail="your@email.com";
+builddir=~/shoota_build/
 functions=0;
-cloudflare_api_key="YOUR_CLOUDFLARE_API_KEY_HERE";
-cloudflare_company_name="YOUR CLOUDFLARE HOSTING COMPANY NAME HERE";
-railgun_token="YOUR_TOKEN_HERE";
-railgun_host="YOUR_PUBLIC_IP_OR_HOSTNAME";
 
 # Debugging on OSX (due to getopt issues), so i define brew location for getopt in env variable
 if [[ -z "${SMYLES_GETOPT}" ]]; then
@@ -70,7 +65,7 @@ else
 fi
 
 # Execute getopt
-ARGS=$("$GETOPT_CMD" -o "hvVur:R" -l "help,verbose,version,unattended,run:,functions" -n "cpsetup" -- "$@");
+ARGS=$("$GETOPT_CMD" -o "hvVur:R" -l "help,verbose,version,unattended,run:,functions" -n "shoota" -- "$@");
 
 #Bad arguments
 if [ $? -ne 0 ];
@@ -120,30 +115,8 @@ while true; do
     esac
 done
 
-BLACK=$(tput setaf 0)
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-YELLOW=$(tput setaf 3)
-LIME_YELLOW=$(tput setaf 190)
-POWDER_BLUE=$(tput setaf 153)
-BLUE=$(tput setaf 4)
-MAGENTA=$(tput setaf 5)
-CYAN=$(tput setaf 6)
-WHITE=$(tput setaf 7)
-BRIGHT=$(tput bold)
-NORMAL=$(tput sgr0)
-BLINK=$(tput blink)
-REVERSE=$(tput smso)
-UNDERLINE=$(tput smul)
+source ./app/shoota_global.inc
 
-BLACKBG=$(tput setab 0)
-REDBG=$(tput setab 1)
-GREENBG=$(tput setab 2)
-YELLOWBG=$(tput setab 3)
-BLUEBG=$(tput setab 4)
-MAGENTABG=$(tput setab 5)
-CYANBG=$(tput setab 6)
-WHITEBG=$(tput setab 7)
 
 source ./app/shoota_func.inc
 
@@ -153,7 +126,7 @@ clear
 cpSetup_banner
 echo -e "\n";
 if (($functions > 0 )); then
-	echo -e "${RED}Here's a list of available functions to call when using the -r or --run command:${NORMAL}"
+	echo -e "${RED}Aquí hay una lista de las funciones disponibles para verlos se usa el comando -r o --run:${NORMAL}"
 	echo -e "\n";
 	compgen -A function | egrep -vw 'givemeayes|help|headerBlock|lineBreak|stepcheck|promptForSSHPort|promptForRootForwardEmail|cpSetup_banner';
 	echo -e "\n";
@@ -161,7 +134,7 @@ if (($functions > 0 )); then
 fi
 
 if [ -z "$cpanel_installed" ]; then
-	echo -e "${WHITEBG}${RED}${BRIGHT}${BLINK}Whoa Nelly!${NORMAL}${WHITEBG}${BLACK}It looks like cPanel is not installed on this server!${NORMAL}"
+	echo -e "${WHITEBG}${RED}${BRIGHT}${BLINK}AVISO!${NORMAL}${WHITEBG}${BLACK}Parece que cPanel no está instalado en este servidor!${NORMAL}"
 	if givemeayes "${RED}¿Le gustaría instalar cPanel antes de ejecutar este script??${NORMAL}"; then
 		headerBlock "No hay problema, primero instalemos cPanel ... esto podría tardar un minuto ... o dos ... o treinta ... por favor, espere ..."
 		echo -e "\n";
@@ -205,6 +178,28 @@ mkdir $builddir
 if [ $run ]; then
 	${run}
 	exit;
+fi
+
+
+if stepcheck "Mejoras al Kernel"; then
+	headerBlock "Agrega Configuraciones a Kernel"
+	hardering_kernel
+fi
+
+if stepcheck "Mejoras a Mysql"; then
+	headerBlock "Agrega Configuraciones a MySQL"
+	mysql_best_config
+fi
+
+
+if stepcheck "Desabilitador Servicios Inutiles"; then
+	headerBlock "Desabilitar Todos los Servicios Inutiles e Inseguros"
+	disable_service
+fi
+
+if stepcheck "Configurar Exim"; then
+	headerBlock "Agregando Configuraciones a Exim"
+	config_exim_log
 fi
 
 if stepcheck "Yum colors"; then

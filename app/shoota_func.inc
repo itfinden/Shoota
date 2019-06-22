@@ -37,6 +37,108 @@ function stepcheck {
 	    esac
 }
 
+function mysql_best_config(){
+cat << 'EOF' > /etc/my.cnf
+#Reglas de MySQL
+[mysqld]
+max_connections = 500
+query_cache_type =1
+query_cache_limit = 2M
+query_cache_size = 64M
+join_buffer_size = 1M
+tmp_table_size = 128M
+max_heap_table_size = 128M
+table_open_cache = 400
+#key_buffer = 2048M
+key_buffer_size = 2048M
+innodb_buffer_pool_size = 2048M
+#Best Practices Reference
+open_files_limit=10000
+max_allowed_packet=268435456
+myisam_sort_buffer_size = 128M
+read_buffer_size = 1M
+sort_buffer_size = 2M
+EOF
+}
+
+function hardering_kernel(){
+	/sbin/sysctl -w "net.ipv4.tcp_syncookies=1"
+	/sbin/sysctl -w "kernel.exec-shield=1"
+	/sbin/sysctl -w "kernel.randomize_va_space=1"
+	/sbin/sysctl -w "kernel.randomize_va_space=1"
+	/sbin/sysctl -w "net.ipv4.conf.all.rp_filter=1"
+	/sbin/sysctl -w "net.ipv4.conf.lo.rp_filter=1"
+	/sbin/sysctl -w "net.ipv4.conf.eth0.rp_filter=1"
+	/sbin/sysctl -w "net.ipv4.conf.default.rp_filter=1"
+	/sbin/sysctl -w "net.ipv4.icmp_echo_ignore_broadcasts=1"
+	/sbin/sysctl -w "net.ipv4.conf.all.accept_redirects=0"
+	/sbin/sysctl -w "net.ipv4.conf.all.send_redirects=0"
+	/sbin/sysctl -w "net.ipv4.tcp_sack=0"
+	/sbin/sysctl -w "net.ipv4.ip_forward=0"
+	/sbin/sysctl -w "net.ipv4.conf.all.accept_source_route=0"
+	/sbin/sysctl -w "net.ipv4.conf.lo.accept_source_route=0"
+	/sbin/sysctl -w "net.ipv4.conf.eth0.accept_source_route=0"
+	/sbin/sysctl -w "net.ipv4.conf.default.accept_source_route=0"
+	/sbin/sysctl -w "net.ipv4.tcp_fin_timeout=15"
+	/sbin/sysctl -w "net.ipv4.tcp_keepalive_time=7200"
+	/sbin/sysctl -p
+}
+
+
+function disable_service(){
+	cd /root
+for service in \
+   avahi-daemon \
+   avahi-dnsconfd \
+   bluetooth \
+   capi \
+   conman \
+   cpus \
+   irda \
+   lisa \
+   netplugd \
+   ifplugd \
+   NetworkManager \
+   NetworkManagerDispatcher \
+   netfs \
+   netplugd \
+   ncsd \
+   oddjobd \
+   openvpn \
+   pcmcia \
+   pcscd \
+   portsentry \
+   postfix \
+   rawdevices \
+   rdisc \
+   rpcgssd \
+   rpcidmapd \
+   saslauthd \
+   tcsd \
+   vsftpd \
+   winbind \
+   wpa_supplicant \
+   xfs \
+   ypbind ;
+   do
+headerBlock "Disabling service: ${service}"
+/sbin/chkconfig ${service} off &>/dev/null
+/sbin/service ${service} stop &>/dev/null
+done
+/scripts/restartsrv_chkservd
+}
+
+
+function config_exim_log(){
+	rm -rf /var/log/registro-spam.log
+	touch /var/log/registro-spam.log
+	chown cpaneleximfilter. /var/log/registro-spam.log
+	chmod 0744 /var/log/registro-spam.log
+
+	rm -rf /etc/antivirus2.exim
+	touch /etc/antivirus2.exim
+}
+
 function installCXS(){
 	cd ~
 	wget https://download.configserver.com/cxsinstaller.tgz
@@ -179,8 +281,8 @@ function installMailScanner(){
 	# Must be ran after updating tweak settings file
 	/usr/local/cpanel/whostmgr/bin/whostmgr2 --updatetweaksettings > /dev/null
 
-	echo -e "\n${WHITEBG}${BLACK}!! HEADS UP !! You now need to go to WHM > Service Manager > Uncheck both boxes for spamd and click Save ${NORMAL}\n";
-	echo -e "\n${WHITEBG}${BLACK}!! HEADS UP !! You now need to Feature Manager > Edit the feature list 'disabled' and uncheck 'SpamAssassin' and 'SpamAssassin Spam Box' ${NORMAL}\n";
+	echo -e "\n${WHITEBG}${BLACK}!! AVISO !! You now need to go to WHM > Service Manager > Uncheck both boxes for spamd and click Save ${NORMAL}\n";
+	echo -e "\n${WHITEBG}${BLACK}!! AVISO !! You now need to Feature Manager > Edit the feature list 'disabled' and uncheck 'SpamAssassin' and 'SpamAssassin Spam Box' ${NORMAL}\n";
 	read -p "Press [Enter] to confirm you have completed this..."
 
 	echo -e "\nYou can now check the files in /usr/mailscanner/etc/rules/*.rules and modify them if desired. There are instructions and examples in the README and EXAMPLES files in that directory";
@@ -449,7 +551,7 @@ function promptForCloudFlareConfig(){
 	# Configuration Prompts ( only shown when -u is NOT specified )
 	if (($unattended < 1)); then
 
-		echo -e "\n${WHITEBG}${BLACK}!! HEADS UP !! The mod_cloudflare module will be installed, but you need to recompile Apache with EasyApache in WHM to enable mod_cloudflare!${NORMAL}\n";
+		echo -e "\n${WHITEBG}${BLACK}!! AVISO !! The mod_cloudflare module will be installed, but you need to recompile Apache with EasyApache in WHM to enable mod_cloudflare!${NORMAL}\n";
 		read -p "Press [Enter] key when you are ready to continue..."
 
 		echo -e "\nExisting value: ${BLUE}${cloudflare_api_key}${NORMAL} \n"
@@ -549,7 +651,7 @@ function installAfterLogicWebmailLite(){
 
 	server_hostname=$(hostname);
 
-	echo -e "\n${WHITEBG}${BLACK}!! HEADS UP !! You MUST login to webmail using an active email account on your server, and then go to this URL: ${NORMAL}\n";
+	echo -e "\n${WHITEBG}${BLACK}!! AVISO !! You MUST login to webmail using an active email account on your server, and then go to this URL: ${NORMAL}\n";
 	echo -e "\n${WHITEBG}${BLACK} http://${server_hostname}:2095/3rdparty/afterlogic/adminpanel/index.php: ${NORMAL}\n";
 	echo -e "\n${WHITEBG}${BLACK} And login with these credentials: ${NORMAL}\n";
 	echo -e "\n${BLUE}Username: ${NORMAL}mailadm\n";
