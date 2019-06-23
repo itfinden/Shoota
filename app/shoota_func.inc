@@ -39,8 +39,8 @@ function stepcheck {
 
 
 function Best_TweakSettings(){
-	whmapi1 set_tweaksetting key=alwaysredirecttossl value=0
-	whmapi1 set_tweaksetting key=requiressl value=0
+	whmapi1 set_tweaksetting key=alwaysredirecttossl value=0 > /dev/null
+	whmapi1 set_tweaksetting key=requiressl value=0 > /dev/null
 }
 
 
@@ -323,19 +323,15 @@ function installWatchMySQL(){
 }
 
 function installPHPiniManager(){
-
 	cd /usr/local/cpanel/whostmgr/docroot/cgi
 	wget -O addon_phpinimgr.php http://download.how2.be/whm/phpinimgr/addon_phpinimgr.php.txt
 	chmod 700 addon_phpinimgr.php
-
 }
 
 function installCleanBackups(){
-
 	cd /usr/src
 	wget http://download.ndchost.com/cleanbackups/latest-cleanbackups
 	sh latest-cleanbackups
-
 }
 
 function installAccountDNSCheck(){
