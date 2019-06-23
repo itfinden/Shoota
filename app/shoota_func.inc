@@ -38,6 +38,45 @@ function stepcheck {
 }
 
 
+function Ajustes_php(){
+	
+	sed -i -e 's/max_execution_time = 30/max_execution_time = 300/g' /opt/cpanel/ea-php72/root/etc/php.ini
+	sed -i -e 's/max_execution_time = 30/max_execution_time = 300/g' /opt/cpanel/ea-php71/root/etc/php.ini
+	sed -i -e 's/max_execution_time = 30/max_execution_time = 300/g' /opt/cpanel/ea-php70/root/etc/php.ini
+	sed -i -e 's/max_execution_time = 30/max_execution_time = 300/g' /opt/cpanel/ea-php56/root/etc/php.ini
+
+	sed -i -e 's/max_input_time = 60/max_input_time = 600/g' /opt/cpanel/ea-php72/root/etc/php.ini
+	sed -i -e 's/max_input_time = 60/max_input_time = 600/g' /opt/cpanel/ea-php71/root/etc/php.ini
+	sed -i -e 's/max_input_time = 60/max_input_time = 600/g' /opt/cpanel/ea-php70/root/etc/php.ini
+	sed -i -e 's/max_input_time = 60/max_input_time = 600/g' /opt/cpanel/ea-php56/root/etc/php.ini
+
+	sed -i -e 's/; max_input_vars = 100/max_input_vars = 1000/g' /opt/cpanel/ea-php72/root/etc/php.ini
+	sed -i -e 's/; max_input_vars = 100/max_input_vars = 1000/g' /opt/cpanel/ea-php71/root/etc/php.ini
+	sed -i -e 's/; max_input_vars = 100/max_input_vars = 1000/g' /opt/cpanel/ea-php70/root/etc/php.ini
+	sed -i -e 's/; max_input_vars = 100/max_input_vars = 1000/g' /opt/cpanel/ea-php56/root/etc/php.ini
+
+	sed -i -e 's/memory_limit = 128M/memory_limit = 320M/g' /opt/cpanel/ea-php72/root/etc/php.ini
+	sed -i -e 's/memory_limit = 128M/memory_limit = 320M/g' /opt/cpanel/ea-php71/root/etc/php.ini
+	sed -i -e 's/memory_limit = 128M/memory_limit = 320M/g' /opt/cpanel/ea-php70/root/etc/php.ini
+	sed -i -e 's/memory_limit = 128M/memory_limit = 320M/g' /opt/cpanel/ea-php56/root/etc/php.ini
+
+	sed -i -e 's/post_max_size = 8M/post_max_size = 80M/g' /opt/cpanel/ea-php72/root/etc/php.ini
+	sed -i -e 's/post_max_size = 8M/post_max_size = 80M/g' /opt/cpanel/ea-php71/root/etc/php.ini
+	sed -i -e 's/post_max_size = 8M/post_max_size = 80M/g' /opt/cpanel/ea-php70/root/etc/php.ini
+	sed -i -e 's/post_max_size = 8M/post_max_size = 80M/g' /opt/cpanel/ea-php56/root/etc/php.ini
+
+	sed -i -e 's/upload_max_filesize = 2M/upload_max_filesize = 20M/g' /opt/cpanel/ea-php72/root/etc/php.ini
+	sed -i -e 's/upload_max_filesize = 2M/upload_max_filesize = 20M/g' /opt/cpanel/ea-php71/root/etc/php.ini
+	sed -i -e 's/upload_max_filesize = 2M/upload_max_filesize = 20M/g' /opt/cpanel/ea-php70/root/etc/php.ini
+	sed -i -e 's/upload_max_filesize = 2M/upload_max_filesize = 20M/g' /opt/cpanel/ea-php56/root/etc/php.ini
+
+
+}
+
+function Compilar_EasyApache(){
+	/usr/local/bin/ea_install_profile --install app/shoota.json
+}
+
 function Best_TweakSettings(){
 	whmapi1 set_tweaksetting key=alwaysredirecttossl value=0 > /dev/null
 	whmapi1 set_tweaksetting key=requiressl value=0 > /dev/null
@@ -261,6 +300,7 @@ function installFirewall(){
 	yum install ${yumargs} perl-GDGraph
 	# Check perl modules
 	perl /usr/local/csf/bin/csftest.pl
+	configureCSF
 }
 
 function installMalDetect(){
@@ -462,6 +502,8 @@ function configureCSF(){
 	sed -i -e 's/LF_SCRIPT_ALERT = "0"/LF_SCRIPT_ALERT = "1"/g' /etc/csf/csf.conf
 	sed -i -e 's/SYSLOG_CHECK = "0"/SYSLOG_CHECK = "1800"/g' /etc/csf/csf.conf
 	sed -i -e 's/PT_ALL_USERS = "0"/PT_ALL_USERS = "1"/g' /etc/csf/csf.conf
+	sed -i -e 's/TESTING = "1"/TESTING = "0"/g' /etc/csf/csf.conf
+	csf -e	
 }
 
 function configureSSH(){

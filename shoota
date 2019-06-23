@@ -179,6 +179,18 @@ if [ $run ]; then
 fi
 
 
+
+if stepcheck "Mejoras al PHP"; then
+	headerBlock "Mejoras a todos los PHP"
+	Ajustes_php
+fi
+
+
+if stepcheck "Compilar al EasyApache"; then
+	headerBlock "Agrega Configuraciones a EasyApache"
+	Compilar_EasyApache
+fi
+
 if stepcheck "Mejoras al TweakSettings"; then
 	headerBlock "Agrega Configuraciones a TweakSettings"
 	Best_TweakSettings
@@ -263,9 +275,15 @@ if stepcheck "Account DNS Check"; then
 	installAccountDNSCheck
 fi
 
-if stepcheck "WatchMySQL"; then
+if stepcheck "WatchMySQL (Deprecado)"; then
 	headerBlock "Instalando : WatchMySQL, Por favor espere..."
 	installWatchMySQL
+
+	#watchmysql
+	#wget http://download.ndchost.com/watchmysql/latest-watchmysql
+	#sh latest-watchmysql
+	#/var/cpanel/addons/watchmysql/bin/uninstall
+    #rm -f latest-watchmysql
 fi
 
 if stepcheck "MySQL Tuner"; then
