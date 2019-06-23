@@ -37,6 +37,15 @@ function stepcheck {
 	    esac
 }
 
+
+function Best_TweakSettings(){
+	sed -i -e 's/alwaysredirecttossl=1/alwaysredirecttossl=0/g' /var/cpanel/cpanel.config
+	sed -i -e 's/requiressl=1/requiressl=0/g' /var/cpanel/cpanel.config
+
+	/usr/local/cpanel/whostmgr/bin/whostmgr2 --updatetweaksettings > /dev/null
+}
+
+
 function mysql_best_config(){
 cat << 'EOF' > /etc/my.cnf
 #Reglas de MySQL
@@ -121,7 +130,7 @@ for service in \
    xfs \
    ypbind ;
    do
-headerBlock "Disabling service: ${service}"
+headerBlock "Desactivando el service: ${service}"
 /sbin/chkconfig ${service} off &>/dev/null
 /sbin/service ${service} stop &>/dev/null
 done
@@ -281,8 +290,8 @@ function installMailScanner(){
 	# Must be ran after updating tweak settings file
 	/usr/local/cpanel/whostmgr/bin/whostmgr2 --updatetweaksettings > /dev/null
 
-	echo -e "\n${WHITEBG}${BLACK}!! AVISO !! You now need to go to WHM > Service Manager > Uncheck both boxes for spamd and click Save ${NORMAL}\n";
-	echo -e "\n${WHITEBG}${BLACK}!! AVISO !! You now need to Feature Manager > Edit the feature list 'disabled' and uncheck 'SpamAssassin' and 'SpamAssassin Spam Box' ${NORMAL}\n";
+	echo -e "\n${WHITEBG}${BLACK}!! AVISO !! debes ir a WHM > Service Manager > Desactiva la la opcion spamd y marca Save ${NORMAL}\n";
+	echo -e "\n${WHITEBG}${BLACK}!! AVISO !! ir a Feature Manager > Edit the feature list 'disabled' and uncheck 'SpamAssassin' and 'SpamAssassin Spam Box' ${NORMAL}\n";
 	read -p "Press [Enter] to confirm you have completed this..."
 
 	echo -e "\nYou can now check the files in /usr/mailscanner/etc/rules/*.rules and modify them if desired. There are instructions and examples in the README and EXAMPLES files in that directory";
@@ -332,15 +341,12 @@ function installCleanBackups(){
 }
 
 function installAccountDNSCheck(){
-
 	cd /usr/src
 	wget http://download.ndchost.com/accountdnscheck/latest-accountdnscheck
 	sh latest-accountdnscheck
-
 }
 
 function installMySQLTuner(){
-
 	cd /usr/bin
 	wget http://mysqltuner.pl/ -O mysqltuner
 	chmod +x mysqltuner

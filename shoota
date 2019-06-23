@@ -1,5 +1,5 @@
 #!/bin/bash
-version="1.5.0";
+version="1.0.0";
 cpSetup_banner() {
 	echo -n "${GREEN}"
 	cat <<"EOT"
@@ -179,6 +179,11 @@ if [ $run ]; then
 fi
 
 
+if stepcheck "Mejoras al TweakSettings"; then
+	headerBlock "Agrega Configuraciones a TweakSettings"
+	Best_TweakSettings
+fi
+
 if stepcheck "Mejoras al Kernel"; then
 	headerBlock "Agrega Configuraciones a Kernel"
 	hardering_kernel
@@ -188,7 +193,6 @@ if stepcheck "Mejoras a Mysql"; then
 	headerBlock "Agrega Configuraciones a MySQL"
 	mysql_best_config
 fi
-
 
 if stepcheck "Desabilitador Servicios Inutiles"; then
 	headerBlock "Desabilitar Todos los Servicios Inutiles e Inseguros"
