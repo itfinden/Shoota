@@ -39,10 +39,8 @@ function stepcheck {
 
 
 function Best_TweakSettings(){
-	sed -i -e 's/alwaysredirecttossl=1/alwaysredirecttossl=0/g' /var/cpanel/cpanel.config
-	sed -i -e 's/requiressl=1/requiressl=0/g' /var/cpanel/cpanel.config
-
-	/usr/local/cpanel/whostmgr/bin/whostmgr2 --updatetweaksettings > /dev/null
+	whmapi1 set_tweaksetting key=alwaysredirecttossl value=0
+	whmapi1 set_tweaksetting key=requiressl value=0
 }
 
 
