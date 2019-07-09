@@ -178,17 +178,25 @@ if [ $run ]; then
 	exit;
 fi
 
-
-
-if stepcheck "Mejoras al PHP"; then
-	headerBlock "Mejoras a todos los PHP"
-	Ajustes_php
+if stepcheck "Desabilitador Servicios Inutiles"; then
+	headerBlock "Desabilitar Todos los Servicios Inutiles e Inseguros"
+	disable_service
 fi
 
+if stepcheck "Todas las actualizaciones del Servidor (Recomendado)"; then
+	headerBlock "Actualizando los Paquetes por favor espere..."
+	yum clean all ${verbose}
+	yum update ${yumargs} ${verbose}
+fi
 
 if stepcheck "Compilar al EasyApache"; then
 	headerBlock "Agrega Configuraciones a EasyApache"
 	Compilar_EasyApache
+fi
+
+if stepcheck "Mejoras al PHP"; then
+	headerBlock "Mejoras a todos los PHP"
+	Ajustes_php
 fi
 
 if stepcheck "Mejoras al TweakSettings"; then
@@ -206,10 +214,7 @@ if stepcheck "Mejoras a Mysql"; then
 	mysql_best_config
 fi
 
-if stepcheck "Desabilitador Servicios Inutiles"; then
-	headerBlock "Desabilitar Todos los Servicios Inutiles e Inseguros"
-	disable_service
-fi
+
 
 if stepcheck "Configurar Exim"; then
 	headerBlock "Agregando Configuraciones a Exim"
@@ -221,11 +226,7 @@ if stepcheck "Yum colors"; then
 	installYumColors
 fi
 
-if stepcheck "Todas las actualizaciones del Servidor (Recomendado)"; then
-	headerBlock "Actualizando los Paquetes por favor espere..."
-	yum clean all ${verbose}
-	yum update ${yumargs} ${verbose}
-fi
+
 
 if stepcheck "ConfigServer MailManage (Recomendado)"; then
 	headerBlock "Instalando : ConfigServer MailManage, Por favor espere..."
