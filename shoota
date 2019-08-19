@@ -178,15 +178,15 @@ if [ $run ]; then
 	exit;
 fi
 
-if stepcheck "Desabilitador Servicios Inutiles"; then
-	headerBlock "Desabilitar Todos los Servicios Inutiles e Inseguros"
-	disable_service
-fi
-
 if stepcheck "Todas las actualizaciones del Servidor (Recomendado)"; then
 	headerBlock "Actualizando los Paquetes por favor espere..."
 	yum clean all ${verbose}
 	yum update ${yumargs} ${verbose}
+fi
+
+if stepcheck "Desabilitador Servicios Inutiles"; then
+	headerBlock "Desabilitar Todos los Servicios Inutiles e Inseguros"
+	disable_service
 fi
 
 if stepcheck "Compilar al EasyApache"; then
