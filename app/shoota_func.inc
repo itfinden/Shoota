@@ -81,6 +81,30 @@ function Best_TweakSettings(){
 	whmapi1 set_tweaksetting key=alwaysredirecttossl value=0 > /dev/null
 	whmapi1 set_tweaksetting key=requiressl value=0 > /dev/null
 	whmapi1 set_tweaksetting key=notify_expiring_certificates value=1 >/dev/null
+	whmapi1 set_tweaksetting key=allowremotedomains value=1
+
+	whmapi1 set_tweaksetting key=allowunregistereddomains value=1
+	whmapi1 set_tweaksetting key=chkservd_check_interval value=120
+	whmapi1 set_tweaksetting key=defaultmailaction value=fail
+	whmapi1 set_tweaksetting key=email_send_limits_max_defer_fail_percentage value=25
+	whmapi1 set_tweaksetting key=email_send_limits_min_defer_fail_to_trigger_protection value=15
+	whmapi1 set_tweaksetting key=maxemailsperhour value=200
+	whmapi1 set_tweaksetting key=permit_unregistered_apps_as_root value=1
+	whmapi1 set_tweaksetting key=skipanalog value=1
+	whmapi1 set_tweaksetting key=skipboxtrapper value=1
+	whmapi1 set_tweaksetting key=skipwebalizer value=1
+	whmapi1 set_tweaksetting key=smtpmailgidonly value=0
+	whmapi1 set_tweaksetting key=eximmailtrap value=1
+	whmapi1 set_tweaksetting key=use_information_schema value=0
+	whmapi1 set_tweaksetting key=cookieipvalidation value=disabled
+	whmapi1 set_tweaksetting key=notify_expiring_certificates value=0
+	whmapi1 set_tweaksetting key=cpaddons_notify_owner value=0
+	whmapi1 set_tweaksetting key=cpaddons_notify_root value=0
+	whmapi1 set_tweaksetting key=enable_piped_logs value=1
+	whmapi1 set_tweaksetting key=email_outbound_spam_detect_action value=block
+	whmapi1 set_tweaksetting key=email_outbound_spam_detect_enable value=1
+	whmapi1 set_tweaksetting key=email_outbound_spam_detect_threshold value=120
+	whmapi1 set_tweaksetting key=skipspambox value=0
 }
 
 
