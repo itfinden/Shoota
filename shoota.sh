@@ -1,5 +1,5 @@
 #!/bin/bash
-version="1.0.0";
+version="1.6.0";
 cpSetup_banner() {
 	echo -n "${GREEN}"
 	cat <<"EOT"
