@@ -80,6 +80,7 @@ function Compilar_EasyApache(){
 function Best_TweakSettings(){
 	whmapi1 set_tweaksetting key=alwaysredirecttossl value=0 > /dev/null
 	whmapi1 set_tweaksetting key=requiressl value=0 > /dev/null
+	whmapi1 set_tweaksetting key=notify_expiring_certificates value=1 >/dev/null
 }
 
 
