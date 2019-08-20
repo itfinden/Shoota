@@ -201,6 +201,11 @@ if stepcheck "Mejoras al PHP"; then
 	Ajustes_php
 fi
 
+if stepcheck "Rectificar Mejoras al PHP"; then
+	headerBlock "Mejoras a todos los PHP Rectificada"
+	Rectifica_php
+fi
+
 if stepcheck "Mejoras al TweakSettings"; then
 	headerBlock "Agrega Configuraciones a TweakSettings"
 	Best_TweakSettings
