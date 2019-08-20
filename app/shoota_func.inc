@@ -74,7 +74,7 @@ function Ajustes_php(){
 }
 
 function Compilar_EasyApache(){
-	/usr/local/bin/ea_install_profile --install app/shoota.json
+	/usr/local/bin/ea_install_profile --install $CWD/app/shoota.json
 }
 
 function Best_TweakSettings(){
