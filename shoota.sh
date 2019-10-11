@@ -1,5 +1,5 @@
 #!/bin/bash
-version="1.6.0";
+version="1.7.0";
 cpSetup_banner() {
 	echo -n "${GREEN}"
 	cat <<"EOT"
@@ -196,6 +196,7 @@ if stepcheck "Compilar al EasyApache"; then
 	Compilar_EasyApache
 fi
 
+
 if stepcheck "Mejoras al PHP"; then
 	headerBlock "Mejoras a todos los PHP"
 	Ajustes_php
@@ -233,7 +234,10 @@ if stepcheck "Yum colors"; then
 	installYumColors
 fi
 
-
+if stepcheck "Comodo (Recomendado)"; then
+	headerBlock "Instalando : Comodo, Por favor espere..."
+	installComodo
+fi
 
 if stepcheck "ConfigServer MailManage (Recomendado)"; then
 	headerBlock "Instalando : ConfigServer MailManage, Por favor espere..."
