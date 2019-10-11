@@ -229,6 +229,13 @@ function config_exim_log(){
 	touch /etc/antivirus2.exim
 }
 
+function installComodo(){
+	cd ~
+	wget https://waf.comodo.com/cpanel/cwaf_client_install.sh
+	sh cwaf_client_install.sh
+}
+
+
 function installCXS(){
 	cd ~
 	wget https://download.configserver.com/cxsinstaller.tgz
